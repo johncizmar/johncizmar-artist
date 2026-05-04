@@ -1,0 +1,53 @@
+---
+layout: layouts/base.njk
+title: ""
+---
+{%- set base = site.url | stripTrailingSlash -%}
+{%- set logoAbs = (base + site.logo) if (base and site.logo and site.logo.startsWith("/")) else site.logo -%}
+{% if site.heroImage %}
+<div class="hero-image">
+  {% image site.heroImage, site.title, "100vw", [800, 1600, 2400] %}
+</div>
+{% endif %}
+
+<section class="hero">
+  <h1>{{ site.title }}</h1>
+  {% if site.tagline %}<p class="tagline">{{ site.tagline }}</p>{% endif %}
+  <p><a class="cta" href="/work/">View Work →</a></p>
+</section>
+
+{% if collections.work.length %}
+  <section class="featured">
+    <ul class="grid">
+      {% for piece in collections.work %}
+        {% if loop.index <= 3 %}
+        <li class="piece">
+          <a href="{{ piece.url }}">
+            <figure>
+              {% image piece.data.image, piece.data.title, "(min-width: 60em) 33vw, 100vw" %}
+              <figcaption>
+                <span class="piece-title">{{ piece.data.title }}</span>
+                {% if piece.data.year %}<span class="piece-year">{{ piece.data.year }}</span>{% endif %}
+              </figcaption>
+            </figure>
+          </a>
+        </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </section>
+{% endif %}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": {{ site.title | dump | safe }}{% if site.tagline %},
+  "jobTitle": {{ site.tagline | dump | safe }}{% endif %}{% if site.description %},
+  "description": {{ site.description | dump | safe }}{% endif %}{% if base %},
+  "url": {{ base | dump | safe }}{% endif %}{% if logoAbs %},
+  "image": {{ logoAbs | dump | safe }}{% endif %}{% if site.email %},
+  "email": {{ ("mailto:" + site.email) | dump | safe }}{% endif %}{% if site.social and site.social.length %},
+  "sameAs": [{% for s in site.social %}{{ s.url | dump | safe }}{% if not loop.last %}, {% endif %}{% endfor %}]{% endif %}
+}
+</script>

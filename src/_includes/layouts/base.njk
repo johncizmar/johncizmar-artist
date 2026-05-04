@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="{{ site.language or 'en' }}">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% include "partials/seo.njk" %}
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <style>
+      :root {
+        --color-bg: {{ theme.background }};
+        --color-fg: {{ theme.text }};
+        --font-body: {{ theme.fontFamily | safe }};
+      }
+    </style>
+  </head>
+  <body>
+    {% include "partials/nav.njk" %}
+    <main>
+      {{ content | safe }}
+    </main>
+    {% include "partials/footer.njk" %}
+  </body>
+</html>

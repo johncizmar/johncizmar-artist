@@ -1,0 +1,37 @@
+{#-
+  SEO meta tags. Every piece is overridable from front-matter:
+    title         — page title (rendered as "Title — Site Name")
+    description   — meta + OG + Twitter description (~160 chars)
+    socialImage   — site-root absolute path used for OG/Twitter share image
+                    (falls back to front-matter `image`, then site.socialImage,
+                    then site.heroImage)
+    ogType        — Open Graph type (default "website")
+    noindex       — set true to keep search engines out of a single page
+-#}
+{%- set base = site.url | stripTrailingSlash -%}
+{%- set fullTitle = (title + " — " + site.title) if title else site.title -%}
+{%- set pageDesc = description or site.description or site.tagline -%}
+{%- set pageImage = socialImage or image or site.socialImage or site.heroImage -%}
+{%- set pageImageAbs = (base + pageImage) if (pageImage and pageImage.startsWith("/")) else pageImage -%}
+{%- set canonical = (base + page.url) if base else page.url -%}
+{%- set type = ogType or "website" -%}
+<title>{{ fullTitle }}</title>
+<meta name="description" content="{{ pageDesc }}" />
+<meta name="author" content="{{ site.title }}" />
+{% if noindex %}<meta name="robots" content="noindex,nofollow" />{% else %}<meta name="robots" content="index,follow" />{% endif %}
+{% if base %}<link rel="canonical" href="{{ canonical }}" />{% endif %}
+
+<meta property="og:title" content="{{ fullTitle }}" />
+<meta property="og:description" content="{{ pageDesc }}" />
+<meta property="og:type" content="{{ type }}" />
+<meta property="og:site_name" content="{{ site.title }}" />
+<meta property="og:locale" content="{{ site.language or 'en' }}" />
+{% if base %}<meta property="og:url" content="{{ canonical }}" />{% endif %}
+{% if pageImageAbs %}<meta property="og:image" content="{{ pageImageAbs }}" />
+<meta property="og:image:alt" content="{{ title or site.title }}" />{% endif %}
+
+<meta name="twitter:card" content="{{ 'summary_large_image' if pageImageAbs else 'summary' }}" />
+<meta name="twitter:title" content="{{ fullTitle }}" />
+<meta name="twitter:description" content="{{ pageDesc }}" />
+{% if site.twitter %}<meta name="twitter:site" content="{{ site.twitter }}" />{% endif %}
+{% if pageImageAbs %}<meta name="twitter:image" content="{{ pageImageAbs }}" />{% endif %}

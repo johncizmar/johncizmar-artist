@@ -1,0 +1,30 @@
+<div class="contact">
+  {% if site.formspreeId %}
+    <form class="contact-form" action="https://formspree.io/f/{{ site.formspreeId }}" method="POST">
+      <label>
+        <span>Your name</span>
+        <input type="text" name="name" required />
+      </label>
+      <label>
+        <span>Your email</span>
+        <input type="email" name="email" required />
+      </label>
+      <label>
+        <span>Message</span>
+        <textarea name="message" rows="5" required></textarea>
+      </label>
+      <button type="submit">Send</button>
+    </form>
+    <p class="contact-fallback">Or email <a href="mailto:{{ site.email }}">{{ site.email }}</a> directly.</p>
+  {% else %}
+    <p>Email <a href="mailto:{{ site.email }}">{{ site.email }}</a>.</p>
+  {% endif %}
+
+  {% if site.social and site.social.length %}
+    <ul class="social-links">
+      {% for s in site.social %}
+        <li><a href="{{ s.url }}" rel="me noopener">{{ s.label }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</div>

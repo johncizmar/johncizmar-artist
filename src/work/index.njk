@@ -1,0 +1,40 @@
+---
+layout: layouts/base.njk
+title: Work
+permalink: /work/
+description: Selected works by Artist Name — paintings, drawings, and sculpture, filterable by category.
+---
+<section class="work-section">
+  <h1>Work</h1>
+
+  {% if collections.categories.length %}
+    <div class="filters" role="toolbar" aria-label="Filter by category">
+      <button type="button" class="filter is-active" data-filter="all">All</button>
+      {% for cat in collections.categories %}
+        <button type="button" class="filter" data-filter="{{ cat | slug }}">{{ cat }}</button>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if collections.work.length %}
+    <ul class="grid" id="work-grid" data-active-category="all">
+      {% for piece in collections.work %}
+        <li class="piece" data-categories="{{ piece.data.categories | slugList }}">
+          <a href="{{ piece.url }}">
+            <figure>
+              {% image piece.data.image, piece.data.title, "(min-width: 60em) 33vw, 100vw" %}
+              <figcaption>
+                <span class="piece-title">{{ piece.data.title }}</span>
+                {% if piece.data.year %}<span class="piece-year">{{ piece.data.year }}</span>{% endif %}
+              </figcaption>
+            </figure>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No work to display yet. Add markdown files to <code>src/work/pieces/</code>.</p>
+  {% endif %}
+</section>
+
+<script src="/assets/js/filter.js" defer></script>

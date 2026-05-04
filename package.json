@@ -1,0 +1,16 @@
+{
+  "name": "artsite",
+  "version": "1.0.0",
+  "private": true,
+  "description": "File-based static portfolio site for fine art, built with Eleventy.",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve",
+    "clean": "rm -rf _site"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "@11ty/eleventy-img": "^5.0.0",
+    "@11ty/eleventy-navigation": "^0.3.5"
+  }
+}

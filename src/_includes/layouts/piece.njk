@@ -1,0 +1,66 @@
+---
+layout: layouts/base.njk
+---
+{%- set base = site.url | stripTrailingSlash -%}
+{%- set imageAbs = (base + image) if (base and image and image.startsWith("/")) else image -%}
+<article class="piece-detail">
+  <a class="back-link" href="/work/">← All work</a>
+  <figure class="piece-detail__image">
+    {% image image, title, "(min-width: 60em) 60vw, 100vw", [800, 1600, 2400] %}
+  </figure>
+  <header class="piece-detail__meta">
+    <h1>{{ title }}</h1>
+    <dl>
+      {% if year %}<dt>Year</dt><dd>{{ year }}</dd>{% endif %}
+      {% if medium %}<dt>Medium</dt><dd>{{ medium }}</dd>{% endif %}
+      {% if dimensions %}<dt>Dimensions</dt><dd>{{ dimensions }}</dd>{% endif %}
+      {% if categories and categories.length %}
+        <dt>Categories</dt>
+        <dd>{{ categories | join(", ") }}</dd>
+      {% endif %}
+    </dl>
+  </header>
+  {% if content %}
+    <div class="piece-detail__body">
+      {{ content | safe }}
+    </div>
+  {% endif %}
+</article>
+
+{%- set prev = collections.work | getPreviousCollectionItem -%}
+{%- set next = collections.work | getNextCollectionItem -%}
+{% if prev or next %}
+<nav class="piece-nav" aria-label="Artwork navigation">
+  {% if prev %}
+    <a class="piece-nav__link piece-nav__link--prev" href="{{ prev.url }}" rel="prev">
+      <span class="piece-nav__label">← Previous</span>
+      <span class="piece-nav__title">{{ prev.data.title }}</span>
+    </a>
+  {% endif %}
+  {% if next %}
+    <a class="piece-nav__link piece-nav__link--next" href="{{ next.url }}" rel="next">
+      <span class="piece-nav__label">Next →</span>
+      <span class="piece-nav__title">{{ next.data.title }}</span>
+    </a>
+  {% endif %}
+</nav>
+{% endif %}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VisualArtwork",
+  "name": {{ title | dump | safe }},
+  "creator": {
+    "@type": "Person",
+    "name": {{ site.title | dump | safe }}
+  }{% if year %},
+  "dateCreated": {{ (year + "") | dump | safe }}{% endif %}{% if medium %},
+  "artMedium": {{ medium | dump | safe }}{% endif %}{% if categories and categories.length %},
+  "artform": {{ categories[0] | dump | safe }}{% endif %}{% if dimensions %},
+  "size": {{ dimensions | dump | safe }}{% endif %}{% if imageAbs %},
+  "image": {{ imageAbs | dump | safe }}{% endif %}{% if description %},
+  "description": {{ description | dump | safe }}{% endif %}{% if base %},
+  "url": {{ (base + page.url) | dump | safe }}{% endif %}
+}
+</script>

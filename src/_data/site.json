@@ -1,0 +1,22 @@
+{
+  "title": "Artist Name",
+  "tagline": "Painter & sculptor",
+  "description": "Selected works, biography, and contact for Artist Name — visual artist working in oil and graphite.",
+  "url": "",
+  "logo": "",
+  "heroImage": "",
+  "socialImage": "",
+  "twitter": "",
+  "language": "en",
+  "email": "artist@example.com",
+  "formspreeId": "",
+  "social": [
+    { "label": "Instagram", "url": "https://instagram.com/" }
+  ],
+  "categoryOrder": ["paintings", "drawings", "sculpture"],
+  "theme": {
+    "background": "#fbfaf7",
+    "text": "#1f1d1a",
+    "font": "serif"
+  }
+}

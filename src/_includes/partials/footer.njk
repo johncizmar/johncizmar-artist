@@ -1,0 +1,11 @@
+<footer class="site-footer">
+  <p>© <span id="year"></span> {{ site.title }}</p>
+  {% if site.social and site.social.length %}
+    <ul class="social-links">
+      {% for s in site.social %}
+        <li><a href="{{ s.url }}" rel="me noopener">{{ s.label }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</footer>

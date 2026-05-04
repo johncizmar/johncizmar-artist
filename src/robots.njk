@@ -1,0 +1,10 @@
+---
+permalink: /robots.txt
+eleventyExcludeFromCollections: true
+---
+{%- set base = site.url | stripTrailingSlash -%}
+User-agent: *
+Allow: /
+{% if base %}
+Sitemap: {{ base }}/sitemap.xml
+{% endif %}
