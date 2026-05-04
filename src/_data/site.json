@@ -1,22 +1,22 @@
 {
-  "title": "Artist Name",
-  "tagline": "Painter & sculptor",
-  "description": "Selected works, biography, and contact for Artist Name — visual artist working in oil and graphite.",
+  "title": "John Cizmar",
+  "tagline": "Artist | Printmaker",
+  "description": "Selected works, biography, and contact for John Cizmar — visual artist working in Printmaking and Mixed Media.",
   "url": "",
   "logo": "",
-  "heroImage": "",
+  "heroImage": "/images/work/idiopathic-crossing.jpeg",
   "socialImage": "",
   "twitter": "",
   "language": "en",
-  "email": "artist@example.com",
+  "email": "art@johncizmar.com",
   "formspreeId": "",
   "social": [
-    { "label": "Instagram", "url": "https://instagram.com/" }
+    { "label": "Instagram", "url": "https://instagram.com/johncizmar" }
   ],
-  "categoryOrder": ["paintings", "drawings", "sculpture"],
+  "categoryOrder": ["painting", "drawing", "intaglio", "monotype","lithograph","mixed-media","silkscreen", "relief"],
   "theme": {
     "background": "#fbfaf7",
     "text": "#1f1d1a",
-    "font": "serif"
+    "font": "modern"
   }
 }

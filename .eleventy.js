@@ -40,11 +40,16 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("images");
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
 
-  // Sorted collection of artworks.
+  // Artworks sorted newest-first by `year:`, with `order:` as a tiebreaker
+  // for pieces in the same year, then `title:` for alphabetical fallback.
+  // Pieces missing `year:` fall to the end.
   eleventyConfig.addCollection("work", (api) => {
     return api
       .getFilteredByGlob("src/work/pieces/*.md")
       .sort((a, b) => {
+        const ay = parseInt(a.data.year, 10) || 0;
+        const by = parseInt(b.data.year, 10) || 0;
+        if (ay !== by) return by - ay;
         const ao = a.data.order ?? 9999;
         const bo = b.data.order ?? 9999;
         if (ao !== bo) return ao - bo;
