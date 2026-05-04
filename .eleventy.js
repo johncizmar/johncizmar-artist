@@ -62,7 +62,7 @@ module.exports = function (eleventyConfig) {
     const works = api.getFilteredByGlob("src/work/pieces/*.md");
     const seen = new Set();
     for (const w of works) {
-      for (const c of (w.data.categories || [])) seen.add(c);
+      for (const c of (w.data.category || [])) seen.add(c);
     }
     const order = siteData.categoryOrder || [];
     const ordered = [];
@@ -81,6 +81,8 @@ module.exports = function (eleventyConfig) {
 
   // Safe JSON serialization for embedding values in JSON-LD scripts.
   eleventyConfig.addFilter("dump", (v) => JSON.stringify(v));
+
+  eleventyConfig.addFilter("limit", (arr, n) => (arr || []).slice(0, n));
 
   // Strip a single trailing slash; used to normalize site.url for absolute links.
   eleventyConfig.addFilter("stripTrailingSlash", (s) =>

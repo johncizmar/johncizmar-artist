@@ -19,7 +19,7 @@ description: Selected works by Artist Name — paintings, drawings, and sculptur
   {% if collections.work.length %}
     <ul class="grid" id="work-grid" data-active-category="all">
       {% for piece in collections.work %}
-        <li class="piece" data-categories="{{ piece.data.categories | slugList }}">
+        <li class="piece" data-categories="{{ piece.data.category | slugList }}">
           <a href="{{ piece.url }}">
             <figure>
               {% image piece.data.image, piece.data.title, "(min-width: 60em) 33vw, 100vw" %}
